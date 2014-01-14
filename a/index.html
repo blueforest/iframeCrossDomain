@@ -12,6 +12,7 @@
    <body>
  <iframe  id="iframea" width="100%" src="http://www.b.test/index.html"></iframe> 
  
+<iframe src="http://www.b.test/sen.html" id="iframesend"></iframe>
    <script>
 
 /*
@@ -30,15 +31,19 @@ function SetCwinHeight(){
  document.getElementById('iframea').onload = SetCwinHeight();
  */
 
- 
+
 window.onload = function(){
+   //向iframesend发送消息
+  document.getElementById("iframesend").contentWindow.postMessage("向sen发送消息",'http://www.b.test');
+
+
+  //接收iframesend的消息
   if(window.postMessage){
-    //var iframe = document.createElement('iframe');
-    //iframe.src = 'http://www.b.test/index.html';
-    //document.body.appendChild(iframe);
     var reciever = function(e){
-      console.log(e.data);
-      //document.getElementById("iframea").height = e.data
+      console.log("接收子页面b.html发送过来的消息:"+e.data);
+      var iframesend = document.getElementById("iframesend");
+      iframesend.height = e.data;
+      iframesend.width = "100%";
     }
     if(window.addEventListener){
       window.addEventListener('message',reciever,false);

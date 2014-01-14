@@ -1,0 +1,37 @@
+   <!DOCTYPE html>
+   <html>
+   <head>
+   <meta charset="utf-8" />
+    
+    <title>b页面</title>
+    <style type="text/css">
+    *{ margin:0; padding: 0;}
+    body{font-size: 12px;}
+    .test{width: 960px; height: 500px; border: 1px solid #f30;background: #ccc; margin: 0 auto;}
+    </style>
+   </head>
+   <body>
+   <div id="test" class="test">
+   </div>
+   <script>
+   window.onload = function(){
+      var onmessage = function(e) {
+         var data = e.data;
+         console.log("从"+e.origin+"那里传过来的消息:"+data)
+      };
+      //监听postMessage消息事件
+      if (typeof window.addEventListener != 'undefined') {
+        window.addEventListener('message', onmessage, false);
+      } else if (typeof window.attachEvent != 'undefined') {
+        window.attachEvent('onmessage', onmessage);
+      };
+
+      //html5 postMessage
+    if( window.postMessage ){
+         var message = document.documentElement.scrollHeight;
+        window.parent.postMessage(message,'http://www.a.test')
+    }
+
+  }
+   </script>
+   </body></html>
