@@ -1,0 +1,52 @@
+   <!DOCTYPE html>
+   <html>
+   <head>
+   <meta charset="utf-8" />
+    
+    <title>a页面</title>
+   <style type="text/css">
+   *{ padding: 0; margin: 0;}
+   iframe{border: none;}
+   </style>
+   </head>
+   <body>
+ <iframe  id="iframea" width="100%" src="http://www.b.test/index.html"></iframe> 
+ 
+
+   <script>
+
+function SetCwinHeight(){
+  var iframeid=document.getElementById("iframea"); //iframe id
+  if (document.getElementById){
+   if (iframeid && !window.opera){
+    if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){
+     iframeid.height = iframeid.contentDocument.body.offsetHeight;
+    }else if(iframeid.Document && iframeid.Document.body.scrollHeight){
+     iframeid.height = iframeid.Document.body.scrollHeight;
+    }
+   }
+  }
+ }  
+ document.getElementById('iframea').onload = SetCwinHeight();
+ 
+ 
+window.onload = function(){
+  if(window.postMessage){
+    //var iframe = document.createElement('iframe');
+    //iframe.src = 'http://www.b.test/index.html';
+    //document.body.appendChild(iframe);
+    var reciever = function(e){
+      console.log(e.data);
+      //document.getElementById("iframea").height = e.data
+    }
+    if(window.addEventListener){
+      window.addEventListener('message',reciever,false);
+    }else if(window.attachEvent){
+      window.attachEvent('onmessage',reciever);
+    }
+  }
+}
+
+ </script>
+   </body>
+</html>
