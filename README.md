@@ -28,3 +28,26 @@
 </VirtualHost>
 ```
 ### 二. 用html5 的postMessage
+被嵌套的页面:www.b.test
+```javascript
+if( window.postMessage ){
+     var message = document.documentElement.scrollHeight;
+    window.parent.postMessage(message,'http://www.a.test')
+}
+```
+接收消息的页面www.a.test
+```javascript
+window.onload = function(){
+  if(window.postMessage){
+    var reciever = function(e){
+      document.getElementById("iframea").height = e.data
+    }
+    if(window.addEventListener){
+      window.addEventListener('message',reciever,false);
+    }else if(window.attachEvent){
+      window.attachEvent('onmessage',reciever);
+    }
+  }
+}
+```
+
